@@ -9,6 +9,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: require('@/components/signin').default
+    },
+    {
+      path: '/dashboard',
+      name: 'HelloWorld',
+      component: require('@/components/signin').default
     }
   ]
 })
