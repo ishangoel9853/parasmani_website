@@ -11,9 +11,35 @@ export default new Router({
       component: require('@/components/signin').default
     },
     {
-      path: '/dashboard',
+      path: '/adminDashboard',
       name: 'HelloWorld',
-      component: require('@/components/signin').default
+      component: require('@/components/adminDashboard').default,
+      children:[
+
+        {
+          path: '/',
+          name: 'HelloWorld',
+          component: require('@/components/adminHome').default,
+        },
+        {
+          path: '/addAdmin',
+          name: 'HelloWorld',
+          component: require('@/components/addAdmin').default,
+        }
+      ]
+    },
+    {
+      path: '/qAdderDashboard',
+      name: 'HelloWorld',
+      component: require('@/components/qAdderDashboard').default,
+      children:[
+
+        {
+          path: '/',
+          name: 'HelloWorld',
+          component: require('@/components/qAdderHome').default,
+        }
+      ]
     }
   ]
 })
