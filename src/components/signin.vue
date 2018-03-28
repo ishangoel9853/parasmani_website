@@ -33,7 +33,7 @@
 </template>
 
 <script>
-  const home = "http://localhost:4000/"
+  const home = "https://intense-scrubland-78603.herokuapp.com/"
   const login = 'login'
 
   export default {
