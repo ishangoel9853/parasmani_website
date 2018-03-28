@@ -33,9 +33,7 @@
 </template>
 
 <script>
-  const axios = require('axios');
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-  const home = "https://intense-scrubland-78603.herokuapp.com/"
+  const home = "http://localhost:4000/"
   const login = 'login'
 
   export default {
@@ -46,18 +44,16 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
     }),
     methods: {
       signIn(){
-        let data = JSON.stringify({
+        let data = {
             password: this.password,
             userId: this.userId
+        }
+
+        this.$http.post(home+login,
+          data
+        ).then((response) => {
+          console.log(response)
         })
-        console.log(axios.defaults.headers.post['Content-Type'])
-        axios.post('/login',data)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
       }
     }
   }
