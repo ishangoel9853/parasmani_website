@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <template>
   <v-app id="inspire">
     <v-navigation-drawer
@@ -98,8 +98,6 @@
     }
   }
 </script>
-||||||| merged common ancestors
-=======
 <template lang="html">
   <div class="">
     admin
@@ -113,4 +111,3 @@ export default {
 
 <style lang="css">
 </style>
->>>>>>> 36a0f21017f52aa2b4f987ad6d78648d94c2a631
