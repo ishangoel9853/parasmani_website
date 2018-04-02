@@ -6,13 +6,14 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import store from './store'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 
-Vue.use(VueAxios, axios)
 Vue.use(Vuetify)
 
 Vue.config.productionTip = false
+
+const he = () => {
+  console.log("hello")
+}
 
 /* eslint-disable no-new */
 new Vue({

@@ -48,12 +48,7 @@
             password: this.password,
             userId: this.userId
         }
-
-        this.$http.post(home+login,
-          data
-        ).then((response) => {
-          console.log(response)
-        })
+        this.$store.dispatch('signIn',data)
       }
     }
   }

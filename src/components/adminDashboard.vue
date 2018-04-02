@@ -98,7 +98,7 @@
     }
   }
 </script>
-<template lang="html">
+<!-- <template lang="html">
   <div class="">
     admin
   </div>
@@ -110,4 +110,4 @@ export default {
 </script>
 
 <style lang="css">
-</style>
+</style> -->
