@@ -4,23 +4,27 @@
       label="First Name"
       v-model="firstName"
       :rules="nameRules"
-      :counter="10"
       required
     ></v-text-field>
     <v-text-field
       label="Middle Name"
       v-model="middleName"
       :rules="nameRules"
-      :counter="10"
       required
     ></v-text-field>
     <v-text-field
       label="Last Name"
       v-model="lastName"
       :rules="nameRules"
-      :counter="10"
       required
     ></v-text-field>
+    <v-select
+      label="Gender"
+      v-model="gender"
+      :items="genderList"
+      :rules="[v => !!v || 'Gender is required']"
+      required
+    ></v-select>
     <v-select
       label="Examination Batch"
       v-model="batch"
@@ -117,7 +121,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import AuthAxios from '../axios'
 
   export default {
     data: () => ({
@@ -125,9 +129,14 @@
       firstName: '',
       middleName: '',
       lastName: '',
+      gender: '',
+      genderList: [
+        'Male',
+        'Female',
+        'Other'
+      ],
       nameRules: [
         v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       batch: null,
       batchList: [
@@ -196,11 +205,26 @@
       submit () {
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
-          axios.post('/api/submit', {
-            name: this.name,
+          AuthAxios.post('/register', {
+            firstName: this.firstName,
+            middleName: this.middleName,
+            lastName: this.lastName,
+            gender: this.gender,
+            batch: this.batch,
+            aadharNo: this.aadharNo,
+            contactNo: this.contactNo,
             email: this.email,
-            select: this.select,
-            checkbox: this.checkbox
+            eduQuali: this.eduQuali,
+            marStats: this.marStats,
+            jobExp: this.jobExp,
+            caste: this.caste,
+            category: this.category,
+            income: this.income,
+            incomeCard:this.incomeCard,
+            religion: this.religion,
+            nationality: this.nationality
+          }).then((response) => {
+            console.log(response)
           })
         }
       },
