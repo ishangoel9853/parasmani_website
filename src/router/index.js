@@ -21,6 +21,10 @@ export default new Router({
         {
           path: '/addStudent',
           component: require('@/components/addStudent').default,
+        },
+        {
+          path: '/addQues',
+          component: require('@/components/addQues').default,
         }
       ]
     },
