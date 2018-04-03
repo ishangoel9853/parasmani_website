@@ -19,8 +19,8 @@ export default new Router({
           component: require('@/components/adminHome').default,
         },
         {
-          path: '/addAdmin',
-          component: require('@/components/addAdmin').default,
+          path: '/addStudent',
+          component: require('@/components/addStudent').default,
         }
       ]
     },

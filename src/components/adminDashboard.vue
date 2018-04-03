@@ -15,12 +15,13 @@
             <router-link to="/adminDashboard">Home</router-link>
           </v-list-tile-content>
         </v-list-tile>
+
         <v-list-tile @click="">
           <v-list-tile-action>
             <v-icon>account_box</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link to="/addAdmin">Add Admin</router-link>
+            <router-link to="/addStudent">Add Student</router-link>
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile @click="">
@@ -28,47 +29,16 @@
             <v-icon>account_box</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link to="/addAdmin">Add Question Adder</router-link>
+            <router-link to="/addStudent">Create Exam</router-link>
           </v-list-tile-content>
         </v-list-tile>
+
         <v-list-tile @click="">
           <v-list-tile-action>
             <v-icon>account_box</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link to="/addAdmin">Add Student</router-link>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>account_box</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="/addAdmin">Create Exam</router-link>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>account_box</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="/addAdmin">Assign Question Adder</router-link>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>account_box</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="/addAdmin">Assign Student</router-link>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-list-tile @click="">
-          <v-list-tile-action>
-            <v-icon>account_box</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <router-link to="/addAdmin">Logout</router-link>
+            <router-link to="/addStudent">Logout</router-link>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
