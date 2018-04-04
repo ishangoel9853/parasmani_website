@@ -212,8 +212,6 @@
 
     methods: {
       submit () {
-        console.log(axios.AuthAxios)
-        console.log(34)
         axios.AuthAxios.post('/signup/student', {
           firstname: this.firstName,
           middlename: this.middleName,
