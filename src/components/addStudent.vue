@@ -1,5 +1,8 @@
 <template>
-  <v-form v-model="valid" ref="form" lazy-validation>
+  <v-container grid-list-md text-xs-center>
+    <v-layout wrap>
+      <v-flex row md8>
+  <v-form v-model="valid" fluid   ref="form" lazy-validation>
     <v-text-field
       label="First Name"
       v-model="firstName"
@@ -9,14 +12,10 @@
     <v-text-field
       label="Middle Name"
       v-model="middleName"
-      :rules="nameRules"
-      required
     ></v-text-field>
     <v-text-field
       label="Last Name"
       v-model="lastName"
-      :rules="nameRules"
-      required
     ></v-text-field>
     <v-select
       label="Gender"
@@ -36,6 +35,13 @@
       label="Aadhar Number"
       v-model="aadharNo"
       :rules="aadharRules"
+      :counter="12"
+      required
+    ></v-text-field>
+    <v-text-field
+      label="Password"
+      v-model="password"
+      type="password"
       :counter="12"
       required
     ></v-text-field>
@@ -118,10 +124,13 @@
     </v-btn>
     <v-btn @click="clear">clear</v-btn>
   </v-form>
+</v-flex>
+</v-layout>
+</v-container>
 </template>
 
 <script>
-  import AuthAxios from '../axios'
+  import axios from '../axios'
 
   export default {
     data: () => ({
@@ -130,6 +139,7 @@
       middleName: '',
       lastName: '',
       gender: '',
+      password:'',
       genderList: [
         'Male',
         'Female',
@@ -140,19 +150,18 @@
       ],
       batch: null,
       batchList: [
-        '',
-        '',
-        ''
+        '1',
+        '2',
+        '3'
       ],
       aadharNo: '',
       aadharRules: [
         v => !!v || 'Aadhar number is required',
-        V => (/^[0-9]+$/ && v.length ==12) || 'Invalid Aadhar number. Please enter a valid aadhar number'
+        v => (/^[0-9]+$/.test(v) && v.length ==12) || 'Invalid Aadhar number. Please enter a valid aadhar number'
       ],
       contactNo: '',
       contactRules: [
-
-        V => (/^[0-9]*$/ && v.length ==10) || 'Invalid contact number. Please enter a valid contact number'
+        v => (/^[0-9]*$/.test(v) && v.length ==10) || 'Invalid contact number. Please enter a valid contact number'
       ],
       email: '',
       emailRules: [
@@ -179,9 +188,9 @@
         'Other'
       ],
       income: '',
-      incomeRules:[
-        v => !!v || 'Annual income is required',
-        V => /^[0-9]+$/ || 'Invalid income. Please enter the annual income in rupees.'
+      incomeRules: [
+        v => !!v || 'Income is required',
+        v => (/^[0-9]+$/.test(v)) || 'Invalid Aadhar number. Please enter a valid aadhar number'
       ],
       incomeCard: '0',
       religion: null,
@@ -203,29 +212,32 @@
 
     methods: {
       submit () {
+        console.log(axios.AuthAxios)
+        console.log(34)
+        axios.AuthAxios.post('/signup/student', {
+          firstname: this.firstName,
+          middlename: this.middleName,
+          lastname: this.lastName,
+          gender: this.gender,
+          batch: this.batch,
+          aadharNo: this.aadharNo,
+          contactNo: this.contactNo,
+          email: this.email,
+          eduQuali: this.eduQuali,
+          marStats: this.marStats,
+          jobExp: this.jobExp,
+          caste: this.caste,
+          category: this.category,
+          income: this.income,
+          incomeCard:this.incomeCard,
+          religion: this.religion,
+          nationality: this.nationality,
+          password: this.password
+        }).then((response) => {
+          console.log(response)
+        })
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
-          AuthAxios.post('/register', {
-            firstName: this.firstName,
-            middleName: this.middleName,
-            lastName: this.lastName,
-            gender: this.gender,
-            batch: this.batch,
-            aadharNo: this.aadharNo,
-            contactNo: this.contactNo,
-            email: this.email,
-            eduQuali: this.eduQuali,
-            marStats: this.marStats,
-            jobExp: this.jobExp,
-            caste: this.caste,
-            category: this.category,
-            income: this.income,
-            incomeCard:this.incomeCard,
-            religion: this.religion,
-            nationality: this.nationality
-          }).then((response) => {
-            console.log(response)
-          })
         }
       },
       clear () {
