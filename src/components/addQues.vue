@@ -70,9 +70,9 @@
       required
     ></v-checkbox>
 
+    <!-- :disabled="!valid" -->
     <v-btn
       @click="submit"
-      :disabled="!valid"
     >
       submit
     </v-btn>
@@ -111,20 +111,20 @@
     }),
     methods: {
       submit () {
-        console.log(this)
-        // axios.AuthAxios.post('/addQuestion', {
-        //   language: this.langList[this.langID],
-        //   question: this.question,
-        //   opt1: this.opt1,
-        //   opt2: this.opt2,
-        //   opt3: this.opt3,
-        //   opt4: this.opt4,
-        //   correct: this.correct,
-        //   subject: this.subject,
-        //   difficulty: this.difficulty
-        // }).then((response) => {
-        //   console.log(response)
-        // })
+
+        axios.AuthAxios.post('/addQuestion', {
+          language: this.langID,
+          question: this.question,
+          opt1: this.opt1,
+          opt2: this.opt2,
+          opt3: this.opt3,
+          opt4: this.opt4,
+          correct: this.correct,
+          subject: this.subject,
+          difficulty: this.difficulty
+        }).then((response) => {
+          console.log(response)
+        })
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
         }

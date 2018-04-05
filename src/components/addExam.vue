@@ -152,7 +152,7 @@ export default {
       valid: true,
       lang: null,
       title:'',
-      duration: '',
+      duration: 0,
       inst:'',
       currentLangId: 0,
       langList: [
