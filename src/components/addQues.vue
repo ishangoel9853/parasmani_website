@@ -37,7 +37,13 @@
       :rules="[v => !!v || 'Please enter option4.']"
       required
     ></v-text-field>
-
+    <v-select
+      label="correct"
+      v-model="correct"
+      :items="correctList"
+      :rules="[v => !!v || 'Correct Answer is required']"
+      required
+    ></v-select>
 
     <v-select
       label="Subject"
@@ -74,64 +80,69 @@
   </v-form>
 </template>
 
-
-
-
-
-
 <script>
-  import axios from 'axios'
+  import axios from '../axios'
 
   export default {
     data: () => ({
+      loaded: false,
       valid: true,
-      langID: '',
-      langList: [
-        ],
+      langID: 0,
+      langList: [],
       question: '',
       opt1: '',
       opt2: '',
       opt3: '',
       opt4: '',
       subject: null,
-      subjectList: [
-
+      subjectList: [],
+      correctList: [
+        1,2,3,4
       ],
-
+      correct: null,
       difficulty: '',
       difficultyList: [
-        '1',
-        '2',
-        '3',
-        '4'
+        'A',
+        'B',
+        'C',
+        'D'
       ],
-
-
       checkbox: false
     }),
-
     methods: {
       submit () {
+        console.log(this)
+        // axios.AuthAxios.post('/addQuestion', {
+        //   language: this.langList[this.langID],
+        //   question: this.question,
+        //   opt1: this.opt1,
+        //   opt2: this.opt2,
+        //   opt3: this.opt3,
+        //   opt4: this.opt4,
+        //   correct: this.correct,
+        //   subject: this.subject,
+        //   difficulty: this.difficulty
+        // }).then((response) => {
+        //   console.log(response)
+        // })
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported
-          AuthAxios.post('/register', {
-            paperID: this.paperID,
-            question: this.question,
-            opt1: this.opt1,
-            opt2: this.opt2,
-            opt3: this.opt3,
-            opt4: this.opt4,
-            subject: this.subject,
-            difficulty: this.difficulty,
-
-          }).then((response) => {
-            console.log(response)
-          })
         }
       },
       clear () {
         this.$refs.form.reset()
       }
+    },
+    mounted: function() {
+      const self = this
+      axios.AuthAxios.get('/languages').then((response) => {
+        self.langList = response.data
+      })
+      axios.AuthAxios.get('/subjects').then((response) => {
+        response.data.forEach(function(val) {
+          self.subjectList.push(val.title)
+        })
+      })
     }
   }
 </script>

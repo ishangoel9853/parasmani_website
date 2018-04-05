@@ -192,7 +192,7 @@ export default {
     submit() {
       axios.AuthAxios.post('/addExam', {
         languages : this.langList,
-        title : this.title,
+        title : this.subject,
         duration : this.duration,
         batches : this.batchList,
         instructions: this.inst,

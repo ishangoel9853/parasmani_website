@@ -149,11 +149,7 @@
         v => !!v || 'Name is required',
       ],
       batch: null,
-      batchList: [
-        '1',
-        '2',
-        '3'
-      ],
+      batchList: [],
       aadharNo: '',
       aadharRules: [
         v => !!v || 'Aadhar number is required',
@@ -241,6 +237,14 @@
       clear () {
         this.$refs.form.reset()
       }
+    },
+    mounted: function() {
+      const self = this
+      axios.AuthAxios.get('/batches').then((response) => {
+        response.data.forEach(function(val) {
+          self.batchList.push(JSON.stringify(val))
+        })
+      })
     }
   }
 </script>
