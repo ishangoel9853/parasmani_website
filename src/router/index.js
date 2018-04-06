@@ -29,6 +29,10 @@ export default new Router({
         {
           path: '/addExam',
           component: require('@/components/addExam').default,
+        },
+        {
+          path: '/viewQuestions',
+          component: require('@/components/viewQuestions').default,
         }
       ]
     },
