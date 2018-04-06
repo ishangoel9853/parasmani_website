@@ -12,7 +12,7 @@
     <v-text-field
       label="Duration"
       v-model="duration"
-      :rules="[v => !!v || 'Duration is required']"
+      :rules="durationRules"
 
 
       required
@@ -38,11 +38,7 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="item.title"></v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn flat @click="deleteBatch(item.key)">
-                <v-icon>delete</v-icon>
-              </v-btn>
-            </v-list-tile-action>
+
           </v-list-tile>
         </v-list>
         <h3 class="mt-3">Batches:</h3>
@@ -60,11 +56,7 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="item.start"></v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn flat @click="deleteBtn(item.key)">
-                <v-icon>delete</v-icon>
-              </v-btn>
-            </v-list-tile-action>
+
           </v-list-tile>
         </v-list>
         <h3 class="mt-3">Subject:</h3>
@@ -137,17 +129,14 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="item.title"></v-list-tile-title>
             </v-list-tile-content>
-            <v-list-tile-action>
-              <v-btn flat @click="deleteBtn(item.key)">
-                <v-icon>delete</v-icon>startTime
-              </v-btn>
-            </v-list-tile-action>
+
           </v-list-tile>
         </v-list>
 
       <v-btn @click="submit()">
         Submit
       </v-btn>
+        <v-btn @click="clear">clear</v-btn>
   </v-form>
 </v-flex>
 </v-layout>
@@ -164,6 +153,11 @@ export default {
       lang: null,
       title:'',
       duration: 0,
+      durationRules: [
+        v => !!v || 'Duration is required',
+        v => (/^[0-9]+$/.test(v)) || 'Invalid Duration. Please enter a valid Duration '
+
+      ],
       inst:'',
       currentLangId: 0,
       langList: [
@@ -190,14 +184,7 @@ export default {
     }
   },
   methods: {
-    deleteBatch(key) {
-    //  console.log(key)
-      this.batchList.splice(key,1);
-    },
-    deleteBtn(key) {
-    //  console.log(key)
-      this.langList.splice(key,1);
-    },
+
     addSub(){
       this.subjectsList.push({
         key : this.subjectIndex,
@@ -219,6 +206,12 @@ export default {
       }).then((response) => {
         console.log(response)
       })
+    },
+    clear () {
+      this.$refs.form.reset();
+      this.langList={};
+      this.subjectsList={};
+      this.batchList={};
     }
   }
 }
