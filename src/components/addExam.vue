@@ -156,7 +156,6 @@ export default {
       durationRules: [
         v => !!v || 'Duration is required',
         v => (/^[0-9]+$/.test(v)) || 'Invalid Duration. Please enter a valid Duration '
-
       ],
       inst:'',
       currentLangId: 0,
