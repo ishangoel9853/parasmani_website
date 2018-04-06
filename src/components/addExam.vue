@@ -12,6 +12,9 @@
     <v-text-field
       label="Duration"
       v-model="duration"
+      :rules="[v => !!v || 'Duration is required']"
+
+
       required
     ></v-text-field>
     <v-text-field
@@ -36,7 +39,7 @@
               <v-list-tile-title v-html="item.title"></v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn flat @click="deleteBtn(item.key)">
+              <v-btn flat @click="deleteBatch(item.key)">
                 <v-icon>delete</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -55,7 +58,7 @@
           <v-subheader>Batches</v-subheader>
           <v-list-tile avatar v-for="item in batchList" :key="item.key" @click="">
             <v-list-tile-content>
-              <v-list-tile-title v-html="item.title"></v-list-tile-title>
+              <v-list-tile-title v-html="item.start"></v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn flat @click="deleteBtn(item.key)">
@@ -64,7 +67,7 @@
             </v-list-tile-action>
           </v-list-tile>
         </v-list>
-        <h3 class="mt-3">Batches:</h3>
+        <h3 class="mt-3">Subject:</h3>
         <v-layout row>
         <v-text-field xs12
         label="Subject"
@@ -78,7 +81,9 @@
          <v-flex xs7>
            <v-text-field
              label="Enter Here"
-            v-model="NoQA"
+             v-model="NoQA"
+             :rules="optRules"
+
            ></v-text-field>
          </v-flex>
         </v-layout>
@@ -90,6 +95,8 @@
            <v-text-field
              label="Enter Here"
              v-model="NoQB"
+             :rules="optRules"
+
            ></v-text-field>
          </v-flex>
         </v-layout>
@@ -101,6 +108,8 @@
            <v-text-field
              label="Enter Here"
              v-model="NoQC"
+             :rules="optRules"
+
            ></v-text-field>
          </v-flex>
         </v-layout>
@@ -112,6 +121,8 @@
            <v-text-field
              label="Enter Here"
              v-model="NoQD"
+             :rules="optRules"
+
            ></v-text-field>
          </v-flex>
         </v-layout>
@@ -128,7 +139,7 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn flat @click="deleteBtn(item.key)">
-                <v-icon>delete</v-icon>
+                <v-icon>delete</v-icon>startTime
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>
@@ -161,13 +172,17 @@ export default {
       startTime: null,
       currentBatchId: 0,
       batchList: [
-
       ],
       subject: '',
       NoQA: 0,
       NoQB: 0,
       NoQC: 0,
       NoQD: 0,
+      optRules: [
+        v => !!v || 'Number of questions is required',
+        v => (/^[0-9]+$/.test(v)) || 'Invalid Number. Please enter a valid number '
+
+      ],
       subjectIndex:0,
       subjectsList: [
 
@@ -175,9 +190,13 @@ export default {
     }
   },
   methods: {
+    deleteBatch(key) {
+    //  console.log(key)
+      this.batchList.splice(key,1);
+    },
     deleteBtn(key) {
-      console.log(obj)
-      // this.langList.splice(x,1);
+    //  console.log(key)
+      this.langList.splice(key,1);
     },
     addSub(){
       this.subjectsList.push({

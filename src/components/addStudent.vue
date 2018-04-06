@@ -161,7 +161,10 @@
       ],
       email: '',
       emailRules: [
-        v => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || /^/) || 'E-mail must be valid'
+        v => !!v || 'Email is required',
+        v => /^([\w-\.]+)@((?:[\w]+\.)+)([a-zA-Z]{2,4})/.test(v)  || 'E-mail must be valid'
+
+        //v => (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || /^/) || 'E-mail must be valid'
       ],
       eduQuali: '',
       marStats: '0',
