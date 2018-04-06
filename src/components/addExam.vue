@@ -48,7 +48,7 @@
               mask="##/##/#### ##:##"
               v-model="startTime"
               append-icon="add"
-              :append-icon-cb="() => batchList.push({key: currentBatchId++,start:startTime})"
+              :append-icon-cb="() => batchList.push({key: currentBatchId++,start:strToTime(startTime)})"
             ></v-text-field>
         <v-list subheader>
           <v-subheader>Batches</v-subheader>
@@ -146,6 +146,7 @@
 <script>
 import axios from '../axios'
 
+
 export default {
   data() {
     return {
@@ -167,6 +168,7 @@ export default {
       currentBatchId: 0,
       batchList: [
       ],
+
       subject: '',
       NoQA: 0,
       NoQB: 0,
@@ -184,6 +186,17 @@ export default {
     }
   },
   methods: {
+
+    strToTime (time) {
+    let dd = time.slice(0,2)
+    let mm = time.slice(2,4)
+    let yyyy = time.slice(4,8)
+    let hr = time.slice(8,10)
+    let min = time.slice(10,12)
+    let date = new Date(`${yyyy}-${mm}-${dd}T${hr}:${mm}:00`);
+
+    return Date.parse(date).toString();
+  },
 
     addSub(){
       this.subjectsList.push({
