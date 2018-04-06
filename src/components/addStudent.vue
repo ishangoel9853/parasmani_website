@@ -62,14 +62,14 @@
     ></v-text-field>
       Marital Status:
     <v-radio-group v-model="marStats" row>
-      <v-radio label="Single" value="0" ></v-radio>
-      <v-radio label="Married" value="1"></v-radio>
+      <v-radio label="Single" value="Single" ></v-radio>
+      <v-radio label="Married" value="Married"></v-radio>
     </v-radio-group>
 
     Job Experience:
   <v-radio-group v-model="jobExp" row>
-    <v-radio label="Yes" value="1" ></v-radio>
-    <v-radio label="no" value="0"></v-radio>
+    <v-radio label="Yes" value="Yes" ></v-radio>
+    <v-radio label="No" value="No"></v-radio>
   </v-radio-group>
     <v-select
       label="Caste"
@@ -93,8 +93,8 @@
     ></v-text-field>
     Income card holder :
     <v-radio-group v-model="incomeCard" row>
-      <v-radio label="BPL" value="0" ></v-radio>
-      <v-radio label="APL" value="1"></v-radio>
+      <v-radio label="BPL" value="BPL" ></v-radio>
+      <v-radio label="APL" value="APL"></v-radio>
     </v-radio-group>
     <v-select
       label="Religion"
