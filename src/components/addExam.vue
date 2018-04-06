@@ -68,7 +68,7 @@
         </v-layout>
         <v-layout row>
          <v-flex xs5>
-           <v-subheader>Number of questions in SET A : </v-subheader>
+           <v-subheader>Number of questions in SET A (1 mrk) : </v-subheader>
          </v-flex>
          <v-flex xs7>
            <v-text-field
@@ -81,7 +81,7 @@
         </v-layout>
         <v-layout row>
          <v-flex xs5>
-           <v-subheader>Number of questions in SET B : </v-subheader>
+           <v-subheader>Number of questions in SET B (2 mrks): </v-subheader>
          </v-flex>
          <v-flex xs7>
            <v-text-field
@@ -94,7 +94,7 @@
         </v-layout>
         <v-layout row>
          <v-flex xs5>
-           <v-subheader>Number of questions in SET C : </v-subheader>
+           <v-subheader>Number of questions in SET C (3 mrks): </v-subheader>
          </v-flex>
          <v-flex xs7>
            <v-text-field
@@ -107,7 +107,7 @@
         </v-layout>
         <v-layout row>
          <v-flex xs5>
-           <v-subheader>Number of questions in SET D : </v-subheader>
+           <v-subheader>Number of questions in SET D (+4,-1 mrks): </v-subheader>
          </v-flex>
          <v-flex xs7>
            <v-text-field
