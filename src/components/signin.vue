@@ -53,7 +53,9 @@ import router from '../router'
     data: () => ({
       userId:'',
       password:'',
-      drawer: null
+      drawer: null,
+      dialog: false,
+      error: ''
     }),
     methods: {
       signIn(){
