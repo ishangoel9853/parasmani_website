@@ -8,7 +8,9 @@ export default {
     http.NotAuthAxios.post(LOGIN,
       data
     ).then((response) => {
-      sessionStorage.setItem('token',response.data)
+      console.log(response.data)
+      sessionStorage.setItem('token',response.data.token)
+      sessionStorage.setItem('kind',response.data.kind)
       router.push('/adminDashboard')
     })
   }
