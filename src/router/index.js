@@ -31,19 +31,23 @@ export default new Router({
           component: require('@/components/addExam').default,
         },
         {
-          path: '/viewQuestions',
-          component: require('@/components/viewQuestions').default,
+          path: '/viewQues',
+          component: require('@/components/viewQues').default,
         }
       ]
     },
     {
-      path: '/qAdderDashboard',
-      component: require('@/components/qAdderDashboard').default,
+      path: '/studentDashboard',
+      component: require('@/components/studentDashboard').default,
       children:[
 
         {
           path: '/',
-          component: require('@/components/qAdderHome').default,
+          component: require('@/components/studentHome').default,
+        },
+        {
+          path: '/viewResult',
+          component: require('@/components/viewResult').default,
         }
       ]
     },

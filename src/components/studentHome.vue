@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    Welcome question adder !
+    Welcome student !
 <br><br>
     please select an option to continue.
   </div>
