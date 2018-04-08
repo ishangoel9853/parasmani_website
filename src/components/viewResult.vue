@@ -12,7 +12,7 @@
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs3 v-for="set in setWise">
+          <v-flex xs3 v-for="set in setWise" :key="set.datasets[0].label">
             <v-card>
               <v-card-title>
                 <h2>{{set.datasets[0].label}}</h2>
@@ -22,7 +22,7 @@
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs4 v-for="subject in subjectWise">
+          <v-flex xs4 v-for="subject in subjectWise" :key="subject.datasets[0].label">
             <v-card>
               <v-card-title>
                 <h2>{{subject.datasets[0].label}}</h2>
