@@ -1,9 +1,8 @@
 <template lang="html">
   <div class="">
-    Welcome question adder !
-<br><br>
-    please select an option to continue.
+  this is you result!
   </div>
+
 </template>
 
 <script>
