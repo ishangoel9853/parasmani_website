@@ -3,15 +3,23 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import Guard from './middlewares'
+
 export default new Router({
   routes: [
     {
       path: '/',
-      component: require('@/components/signin').default
+      component: require('@/components/signin').default,
+      beforeEnter: Guard.guest
+    },
+    {
+      path: '/error',
+      component: require('@/components/error').default
     },
     {
       path: '/adminDashboard',
       component: require('@/components/adminDashboard').default,
+      beforeEnter: Guard.authAdmin,
       children:[
 
         {
