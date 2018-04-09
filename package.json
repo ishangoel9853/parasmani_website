@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "beautify-scrollbar": "^1.0.5",
     "chart.js": "^2.7.2",
+    "v2-table": "^2.0.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.0.2",
     "vue-chartjs": "^3.3.1",
