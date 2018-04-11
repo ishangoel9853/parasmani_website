@@ -2,7 +2,7 @@ import router from './index'
 
 export default {
     guest (to, from, next) {
-        if(sessionStorage.getItem('token') == null) {
+        if(window.localStorage.getItem('token') == null) {
           next()
         } else {
           router.push("/error")
@@ -10,8 +10,8 @@ export default {
     },
     authAdmin (to, from, next) {
       console.log("chut")
-      if(sessionStorage.getItem('token') != null) {
-        if(sessionStorage.getItem('kind') == 'admin') {
+      if(window.localStorage.getItem('token') != null) {
+        if(window.localStorage.getItem('kind') == 'admin') {
           next()
         } else {
           router.push("/error")
@@ -21,8 +21,8 @@ export default {
       }
     },
     authStudent (to, from, next) {
-      if(sessionStorage.getItem('token') != null) {
-        if(sessionStorage.getItem('kind') == 'student') {
+      if(window.localStorage.getItem('token') != null) {
+        if(window.localStorage.getItem('kind') == 'student') {
           next()
         } else {
           router.push("/error")

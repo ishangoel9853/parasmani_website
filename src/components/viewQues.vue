@@ -13,7 +13,7 @@
 -->
 
 <template>
-<div>
+<v-app v-if="loaded">
   <v-select
     label="Language ID"
     v-model="langID"
@@ -23,10 +23,10 @@
   ></v-select>
 
   <v-select
-    label="Subject"
-    v-model="subject"
-    :items="subjectList"
-    :rules="[v => !!v || 'Subject is required']"
+    label="Set"
+    v-model="set"
+    :items="setList"
+    :rules="[v => !!v || 'Set is required']"
     required
   ></v-select>
 
@@ -38,13 +38,13 @@
     <v2-table-column label="Subject" prop="date"></v2-table-column>  -->
     <v2-table-column label="ID" prop="ID"></v2-table-column>
 
-    <v2-table-column label="Question" prop="Title"></v2-table-column>
+    <v2-table-column label="Question" prop="title"></v2-table-column>
 
-    <v2-table-column label="Opt1" prop="Opt1"></v2-table-column>
-    <v2-table-column label="Opt2" prop="Opt2"></v2-table-column>
-    <v2-table-column label="Opt3" prop="Opt3"></v2-table-column>
-    <v2-table-column label="Opt4" prop="Opt4"></v2-table-column>
-    <v2-table-column label="Set" prop="Set"></v2-table-column>
+    <v2-table-column label="Opt1" prop="options['A']"></v2-table-column>
+    <v2-table-column label="Opt2" prop="options.B.value"></v2-table-column>
+    <v2-table-column label="Opt3" prop="options.C.value"></v2-table-column>
+    <v2-table-column label="Opt4" prop="options.D.value"></v2-table-column>
+    <v2-table-column label="Subject" prop="subject"></v2-table-column>
 
     <v2-table-column label="Correct" prop="Correct"></v2-table-column>
   </v2-table>
@@ -58,42 +58,47 @@
   ></v-text-field>
   <v-btn @click="remove(quesID)">Delete</v-btn>
 
-  </div>
+</v-app>
 
 </template>
 
 <script>
+import axios from '../axios'
+
 export default {
 
  data() {
    return {
      langID: 0,
      langList: [],
-     subject: null,
-     subjectList: [],
+     set: null,
+     setList: [],
      quesList: [],
      quesID: null,
+     loaded: false,
+     exam: {}
   }
 },
  methods: {
 
    remove: function(ques){
      console.log(ques);
-
      var idx = this.quesList.indexOf(ques)
      console.log('idx', idx)
      this.quesList.splice(idx,1)
    }
  },
+ computed: {
+   opt1: () => {
+     return "hello"
+   }
+ },
  mounted: function() {
    const self = this
-   axios.AuthAxios.get('/languages').then((response) => {
-     self.langList = response.data
-   })
-   axios.AuthAxios.get('/subjects').then((response) => {
-     response.data.forEach(function(val) {
-       self.subjectList.push(val.title)
-     })
+   axios.AuthAxios.get('/examAll').then((response) => {
+     console.log(response.data)
+     this.quesList = response.data.question_papers[0].A
+     this.loaded = true
    })
  }
 }

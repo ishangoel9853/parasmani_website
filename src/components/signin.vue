@@ -64,8 +64,9 @@ import router from '../router'
           password: this.password
         }).then((response) => {
           console.log(response.data)
-          sessionStorage.setItem('token', response.data.token)
-          sessionStorage.setItem('kind',response.data.user.kind)
+          window.localStorage.setItem('token', response.data.token)
+          console.log(response.data.user)
+          window.localStorage.setItem('kind',response.data.user.kind)
           router.push('/adminDashboard')
         }).catch((err) => {
           this.error = err.toString()

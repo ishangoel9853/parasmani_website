@@ -1,4 +1,6 @@
 import axios from 'axios'
+// const LocalStorage = require('node-localstorage').LocalStorage,
+// localStorage = new LocalStorage('./scratch');
 
 export default {
   AuthAxios : axios.create({
@@ -7,7 +9,7 @@ export default {
     // baseURL: 'http://10.100.73.241:4000/',
     baseURL: 'http://localhost:4000/',
     headers: {
-      'Authorization':`Bearer ${sessionStorage.getItem("token")}`
+      'Authorization':`Bearer ${window.localStorage.getItem("token")}`
     }
   }),
   NotAuthAxios : axios.create({
