@@ -232,6 +232,10 @@
           password: this.password
         }).then((response) => {
           console.log(response)
+        }).catch((err) => {
+          this.error = err.toString()
+          this.dialog = true
+          console.log(this.err)
         })
         if (this.$refs.form.validate()) {
           // Native form submission is not yet supported

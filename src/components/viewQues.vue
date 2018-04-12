@@ -155,6 +155,10 @@ export default {
      console.log(response.data)
      this.quesList = response.data.question_papers[0].A
      this.loaded = true
+   }).catch((err) => {
+     this.error = err.toString()
+     this.dialog = true
+     console.log(this.err)
    })
  }
 }

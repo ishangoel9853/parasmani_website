@@ -186,6 +186,10 @@ export default {
       this.setDataSubjectWise(data)
       this.setOverall(data)
       this.loaded = true
+    }).catch((err) => {
+      this.error = err.toString()
+      this.dialog = true
+      console.log(this.err)
     })
   }
 }

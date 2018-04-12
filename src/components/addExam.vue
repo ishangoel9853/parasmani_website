@@ -217,6 +217,10 @@ export default {
         subjects : this.subjectsList
       }).then((response) => {
         console.log(response)
+      }).catch((err) => {
+        this.error = err.toString()
+        this.dialog = true
+        console.log(this.err)
       })
     },
     clear () {
