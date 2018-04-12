@@ -30,12 +30,9 @@
     required
   ></v-select>
 
-
+<!--
   <v2-table :data="quesList">
 
-  <!-- <v2-table-column label="Language" prop="name"></v2-table-column>
-
-    <v2-table-column label="Subject" prop="date"></v2-table-column>  -->
     <v2-table-column label="ID" prop="ID"></v2-table-column>
 
     <v2-table-column label="Question" prop="title"></v2-table-column>
@@ -48,6 +45,28 @@
 
     <v2-table-column label="Correct" prop="Correct"></v2-table-column>
   </v2-table>
+-->
+<v-data-table
+    :headers="headers"
+    :items="quesList"
+    hide-actions
+    class="elevation-1"
+  >
+    <template slot="items" slot-scope="props">
+      <td>{{ props.item.name }}</td>
+      <td class="text-xs-right">{{ props.item.ID }}</td>
+      <td class="text-xs-right">{{ props.item.title}}</td>
+      <td class="text-xs-right">{{ props.item.options.A.value }}</td>
+      <td class="text-xs-right">{{ props.item.options.B.value }}</td>
+      <td class="text-xs-right">{{ props.item.options.C.value }}</td>
+      <td class="text-xs-right">{{ props.item.options.D.value }}</td>
+
+      <td class="text-xs-right">{{ props.item.subject }}</td>
+      <td class="text-xs-right">{{ props.item.correct }}</td>
+    </template>
+  </v-data-table>
+
+
 
   Enter the ID of the question to be removed:
   <v-text-field
@@ -73,6 +92,24 @@ export default {
      langList: [],
      set: null,
      setList: [],
+     headers: [
+         {
+           text: 'Question ID',
+           align: 'left',
+           value: 'ID'
+         },
+         { text: 'Question', value: 'title' },
+         { text: 'Option A', value: 'options.A.value' },
+         { text: 'Option B', value: 'options.B.value' },
+         { text: 'Option C', value: 'options.C.value' },
+         { text: 'Option D', value: 'options.D.value' },
+
+         { text: 'Subject', value: 'subject' },
+         { text: 'Correct Ans', value: 'correct' },
+       ],
+
+
+
      quesList: [],
      quesID: null,
      loaded: false,
