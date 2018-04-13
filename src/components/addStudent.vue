@@ -212,9 +212,9 @@
     methods: {
       submit () {
         axios.AuthAxios.post('/signup/student', {
-          firstname: this.firstName,
-          middlename: this.middleName,
-          lastname: this.lastName,
+          firstName: this.firstName,
+          middleName: this.middleName,
+          lastName: this.lastName,
           gender: this.gender,
           batch: this.batch,
           aadharNo: this.aadharNo,

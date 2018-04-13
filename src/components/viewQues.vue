@@ -1,16 +1,3 @@
-<!--
-<template lang="html">
-  <div id="app">
- <ul id="example-2">
- <li v-for="book in books">
- <b>{{ book.name }}</b> By <i>{{ book.author }}</i>
- <a v-if="isNotComplete(book)">DONE</a>
-  <a href="#" @click.prevent = 'remove(book)'>DROP IT</a>
- </li>
- </ul>
-</div>
-</template>
--->
 
 <template>
 <v-app v-if="loaded">
@@ -30,57 +17,39 @@
     required
   ></v-select>
 
-<!--
-  <v2-table :data="quesList">
-
-    <v2-table-column label="ID" prop="ID"></v2-table-column>
-
-    <v2-table-column label="Question" prop="title"></v2-table-column>
-
-    <v2-table-column label="Opt1" prop="options['A']"></v2-table-column>
-    <v2-table-column label="Opt2" prop="options.B.value"></v2-table-column>
-    <v2-table-column label="Opt3" prop="options.C.value"></v2-table-column>
-    <v2-table-column label="Opt4" prop="options.D.value"></v2-table-column>
-    <v2-table-column label="Subject" prop="subject"></v2-table-column>
-
-    <v2-table-column label="Correct" prop="Correct"></v2-table-column>
-  </v2-table>
--->
-<v-data-table
-  :headers="headers"
-  :items="quesList"
-  :search="search"
-  :pagination.sync="pagination"
-  hide-actions
-  class="elevation-1"
->
-  <template slot="headerCell" slot-scope="props">
-    <v-tooltip bottom>
-      <span slot="activator">
-        {{ props.header.text }}
-      </span>
-      <span>
-        {{ props.header.text }}
-      </span>
-    </v-tooltip>
+  <template>
+    <div>
+      <v-data-table
+        :headers="headers"
+        :items="quesList"
+        class="elevation-1"
+      >
+        <template slot="headerCell" slot-scope="props">
+          <v-tooltip bottom>
+            <span slot="activator">
+              {{ props.header.text }}
+            </span>
+            <span>
+              {{ props.header.text }}
+            </span>
+          </v-tooltip>
+        </template>
+        <template slot="items" slot-scope="props">
+          <td class="text-xs-right">{{ props.item.id }}</td>
+          <td class="text-xs-right">{{ props.item.title }}</td>
+          <td class="text-xs-right">{{ props.item.options.A.value }}</td>
+          <td class="text-xs-right">{{ props.item.options.B.value }}</td>
+          <td class="text-xs-right">{{ props.item.options.C.value }}</td>
+          <td class="text-xs-right">{{ props.item.options.D.value }}</td>
+          <td class="text-xs-right">{{ props.item.subject }}</td>
+          <td class="text-xs-right">{{ props.item.correct }}</td>
+        </template>
+        <template slot="pageText" slot-scope="props">
+          Questions {{ props.pageStart }} - {{ props.pageStop }} out of {{ props.itemsLength }}
+        </template>
+      </v-data-table>
+    </div>
   </template>
-    <template slot="items" slot-scope="props">
-      <!-- <td>{{ props.item.name }}</td> -->
-      <td class="text-xs-right">{{ props.item._id }}</td>
-      <td class="text-xs-right">{{ props.item.title}}</td>
-      <td class="text-xs-right">{{ props.item.options.A.value }}</td>
-      <td class="text-xs-right">{{ props.item.options.B.value }}</td>
-      <td class="text-xs-right">{{ props.item.options.C.value }}</td>
-      <td class="text-xs-right">{{ props.item.options.D.value }}</td>
-
-      <td class="text-xs-right">{{ props.item.subject }}</td>
-      <td class="text-xs-right">{{ props.item.correct }}</td>
-    </template>
-  </v-data-table>
-  <div class="text-xs-center pt-2">
-    <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-  </div>
-
 
   Enter the ID of the question to be removed:
   <v-text-field
@@ -106,13 +75,13 @@ export default {
      pagination: {},
      langID: 0,
      langList: [],
-     set: null,
+     set: 0,
      setList: [],
      headers: [
          {
            text: 'Question ID',
            align: 'left',
-           value: '_id',
+           value: 'id',
          },
          { text: 'Question', value: 'title', class:'width-quest' },
          { text: 'Option A', value: 'options.A.value' },
@@ -129,7 +98,6 @@ export default {
   }
 },
  methods: {
-
    remove: function(ques){
      console.log(ques);
      var idx = this.quesList.indexOf(ques)
@@ -138,36 +106,68 @@ export default {
    }
  },
  computed: {
-   opt1: () => {
-     return "hello"
-   },
    pages () {
-        if (this.pagination.rowsPerPage == null ||
-          this.pagination.totalItems == null
-        ) return 0
-
-        return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-      }
+     if (this.pagination.rowsPerPage == null ||
+       this.pagination.totalItems == null
+     ) return 0
+     return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+   }
  },
  mounted: function() {
    const self = this
    axios.AuthAxios.get('/examAll').then((response) => {
-     console.log(response.data)
-     this.quesList = response.data.question_papers[0]['A']
      response.data.question_papers.forEach((val) => {
-       console.log(val.language)
        this.langList.push(val.language)
+
+       let ak = response.data.answerkey.find(function (obj) { return obj.language == val.language});
+       let i = 1
+
+       val.A.forEach((q) => {
+         let k = ak.answers.find(function (obj) { return obj.question_id == q._id})
+         q['correct'] = k.answer_id
+         q['id'] = i++;
+       })
+       val.B.forEach((q) => {
+         let k = ak.answers.find(function (obj) { return obj.question_id == q._id})
+         q['correct'] = k.answer_id
+         q['id'] = i++;
+       })
+       val.C.forEach((q) => {
+         let k = ak.answers.find(function (obj) { return obj.question_id == q._id})
+         q['correct'] = k.answer_id
+         q['id'] = i++;
+       })
+       val.D.forEach((q) => {
+         let k = ak.answers.find(function (obj) { return obj.question_id == q._id})
+         q['correct'] = k.answer_id
+         q['id'] = i++;
+       })
+       this.exam[val.language] = {}
+       this.exam[val.language]['A'] = val.A
+       this.exam[val.language]['B'] = val.B
+       this.exam[val.language]['C'] = val.C
+       this.exam[val.language]['D'] = val.D
+
      })
      this.setList.push('A','B','C','D')
+
+     this.langID = this.langList[0]
+     this.set = this.setList[0]
+
+     this.quesList = this.exam[this.langID][this.set]
      this.loaded = true
    }).catch((err) => {
      this.error = err.toString()
      this.dialog = true
-     console.log(this.err)
    })
  },
- computed: {
-
+ watch: {
+   langID: function(){
+     this.quesList = this.exam[this.langID][this.set]
+   },
+   set: function() {
+     this.quesList = this.exam[this.langID][this.set]
+   }
  }
 }
 </script>

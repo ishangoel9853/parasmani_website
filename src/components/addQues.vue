@@ -1,4 +1,7 @@
 <template>
+  <v-container grid-list-md text-xs-center>
+    <v-layout wrap>
+      <v-flex row md12>
   <v-form v-model="valid" ref="form" lazy-validation>
     <v-select
       label="Language ID"
@@ -7,12 +10,22 @@
       :rules="[v => !!v || 'Language is required']"
       required
     ></v-select>
-    <v-text-field
-      label="Question"
-      v-model="question"
-      :rules="[v => !!v || 'Please enter a question.']"
-      required
-    ></v-text-field>
+    <v-layout row wrap>
+      <v-flex xs6>
+        <v-text-field
+          label="Question"
+          v-model="question"
+            multi-line
+
+          :rules="[v => !!v || 'Please enter a question.']"
+          required
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs6>
+        <p v-html="markedQuestion">
+        </p>
+      </v-flex>
+    </v-layout>
     <v-text-field
       label="Option1"
       v-model="opt1"
@@ -78,11 +91,14 @@
     </v-btn>
     <v-btn @click="clear">clear</v-btn>
   </v-form>
+</v-flex>
+</v-layout>
+</v-container>
 </template>
 
 <script>
   import axios from '../axios'
-
+  import marked from 'marked'
   export default {
     data: () => ({
       loaded: false,
@@ -135,6 +151,11 @@
       },
       clear () {
         this.$refs.form.reset()
+      }
+    },
+    computed: {
+      markedQuestion: function() {
+        return marked(this.question)
       }
     },
     mounted: function() {
