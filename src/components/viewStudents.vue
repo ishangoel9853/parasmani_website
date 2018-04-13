@@ -54,6 +54,19 @@
         <v-btn @click="remove(studentID)">Delete</v-btn>
       </div>
 </v-layout>
+<v-dialog v-model="dialog" max-width="500px">
+    <v-card>
+      <v-card-title>
+        <h2>{{errorTitle}}</h2>
+      </v-card-title>
+      <v-card-text>
+        {{error}}
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" flat @click.stop="dialog=false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </v-container>
 
 </v-app>
@@ -95,7 +108,10 @@ export default {
      studentList: [],
      studentID: null,
      loaded: false,
-     exam: {}
+     exam: {},
+     error: '',
+     errorTitle: '',
+     dialog: false,
   }
 },
  methods: {
@@ -103,6 +119,11 @@ export default {
      var item = this.studentList.find(function (obj) { return obj._id == id});
      axios.AuthAxios.post('/students',{id:id}).then((response) => {
        this.studentList.slice(this.studentList.indexOf(item),this.studentList.indexOf(item)+1)
+     }).then((response) => {
+       console.log(response)
+         this.throwUp("Successful!!","Created Successfully")
+     }).catch((err) => {
+       this.throwUp("Successful!!",err.toString())
      })
    }
  },

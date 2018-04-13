@@ -140,6 +140,19 @@
   </v-form>
 </v-flex>
 </v-layout>
+<v-dialog v-model="dialog" max-width="500px">
+    <v-card>
+      <v-card-title>
+        <h2>{{errorTitle}}</h2>
+      </v-card-title>
+      <v-card-text>
+        {{error}}
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" flat @click.stop="dialog=false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </v-container>
 </template>
 
@@ -154,6 +167,9 @@ export default {
       lang: null,
       title:'',
       duration: 0,
+      error: '',
+      errorTitle: '',
+      dialog: false,
       durationRules: [
         v => !!v || 'Duration is required',
         v => (/^[0-9]+$/.test(v)) || 'Invalid Duration. Please enter a valid Duration '
@@ -185,7 +201,11 @@ export default {
     }
   },
   methods: {
-
+    throwUp: function(title,content) {
+      this.error = content
+      this.errorTitle = title
+      this.dialog = true
+    },
     strToTime (time) {
     let dd = time.slice(0,2)
     let mm = time.slice(2,4)
@@ -217,10 +237,9 @@ export default {
         subjects : this.subjectsList
       }).then((response) => {
         console.log(response)
+          this.throwUp("Successful!!","Created Successfully")
       }).catch((err) => {
-        this.error = err.toString()
-        this.dialog = true
-        console.log(this.err)
+        this.throwUp("Successful!!",err.toString())
       })
     },
     clear () {

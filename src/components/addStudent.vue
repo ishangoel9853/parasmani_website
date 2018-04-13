@@ -126,6 +126,19 @@
   </v-form>
 </v-flex>
 </v-layout>
+<v-dialog v-model="dialog" max-width="500px">
+    <v-card>
+      <v-card-title>
+        <h2>{{errorTitle}}</h2>
+      </v-card-title>
+      <v-card-text>
+        {{error}}
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" flat @click.stop="dialog=false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </v-container>
 </template>
 
@@ -210,34 +223,38 @@
     }),
 
     methods: {
+      throwUp: function(title,content) {
+        this.error = content
+        this.errorTitle = title
+        this.dialog = true
+      },
       submit () {
-        axios.AuthAxios.post('/signup/student', {
-          firstName: this.firstName,
-          middleName: this.middleName,
-          lastName: this.lastName,
-          gender: this.gender,
-          batch: this.batch,
-          aadharNo: this.aadharNo,
-          contactNo: this.contactNo,
-          email: this.email,
-          eduQuali: this.eduQuali,
-          marStats: this.marStats,
-          jobExp: this.jobExp,
-          caste: this.caste,
-          category: this.category,
-          income: this.income,
-          incomeCard:this.incomeCard,
-          religion: this.religion,
-          nationality: this.nationality,
-          password: this.password
-        }).then((response) => {
-          console.log(response)
-        }).catch((err) => {
-          this.error = err.toString()
-          this.dialog = true
-          console.log(this.err)
-        })
         if (this.$refs.form.validate()) {
+          axios.AuthAxios.post('/signup/student', {
+            firstName: this.firstName,
+            middleName: this.middleName,
+            lastName: this.lastName,
+            gender: this.gender,
+            batch: this.batch,
+            aadharNo: this.aadharNo,
+            contactNo: this.contactNo,
+            email: this.email,
+            eduQuali: this.eduQuali,
+            marStats: this.marStats,
+            jobExp: this.jobExp,
+            caste: this.caste,
+            category: this.category,
+            income: this.income,
+            incomeCard:this.incomeCard,
+            religion: this.religion,
+            nationality: this.nationality,
+            password: this.password
+          }).then((response) => {
+            console.log(response)
+            this.throwUp("Successful!!","Created Successfully")
+          }).catch((err) => {
+            this.throwUp("Successful!!",err.toString())
+          })
           // Native form submission is not yet supported
         }
       },
