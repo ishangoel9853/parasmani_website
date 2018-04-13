@@ -153,13 +153,21 @@ export default {
    const self = this
    axios.AuthAxios.get('/examAll').then((response) => {
      console.log(response.data)
-     this.quesList = response.data.question_papers[0].A
+     this.quesList = response.data.question_papers[0]['A']
+     response.data.question_papers.forEach((val) => {
+       console.log(val.language)
+       this.langList.push(val.language)
+     })
+     this.setList.push('A','B','C','D')
      this.loaded = true
    }).catch((err) => {
      this.error = err.toString()
      this.dialog = true
      console.log(this.err)
    })
+ },
+ computed: {
+
  }
 }
 </script>
