@@ -24,13 +24,16 @@
       :rules="[v => !!v || 'Gender is required']"
       required
     ></v-select>
+
     <v-select
+    :items="batchList"
       label="Examination Batch"
       v-model="batch"
-      :items="batchList"
-      :rules="[v => !!v || 'Batch is required']"
-      required
+      single-line
+      item-text="time"
+      item-value="_id"
     ></v-select>
+
     <v-text-field
       label="Aadhar Number"
       v-model="aadharNo"
@@ -41,7 +44,6 @@
     <v-text-field
       label="Password"
       v-model="password"
-      type="password"
       :counter="12"
       required
     ></v-text-field>
@@ -152,6 +154,9 @@
       middleName: '',
       lastName: '',
       gender: '',
+      error: "",
+      errorTitle: "",
+      dialog:false,
       password:'',
       genderList: [
         'Male',
@@ -221,7 +226,6 @@
       ],
       checkbox: false
     }),
-
     methods: {
       throwUp: function(title,content) {
         this.error = content
@@ -266,7 +270,8 @@
       const self = this
       axios.AuthAxios.get('/batches').then((response) => {
         response.data.forEach(function(val) {
-          self.batchList.push(JSON.stringify(val))
+          val['time'] = (new Date(val.start_time)).toUTCString().concat(" to ").concat((new Date(val.end_time)).toUTCString())
+          self.batchList.push(val)
         })
       })
     }

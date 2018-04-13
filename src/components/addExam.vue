@@ -13,8 +13,6 @@
       label="Duration"
       v-model="duration"
       :rules="durationRules"
-
-
       required
     ></v-text-field>
     <v-text-field
@@ -42,14 +40,17 @@
           </v-list-tile>
         </v-list>
         <h3 class="mt-3">Batches:</h3>
-        <v-text-field
-              name="batchinput"
-              label="Start Time (dd/mm/yyyy hh:mm)"
-              mask="##/##/#### ##:##"
-              v-model="startTime"
-              append-icon="add"
-              :append-icon-cb="() => batchList.push({key: currentBatchId++,start:strToTime(startTime)})"
-            ></v-text-field>
+        <v-layout wrap>
+          <v-flex row md6>
+              <v-date-picker v-model="dateData"></v-date-picker>
+          </v-flex>
+          <v-flex row md6>
+              <v-time-picker v-model="timeData"></v-time-picker>
+          </v-flex>
+          <v-btn row md12 color="primary" @click="addDateTime()">
+            Add
+          </v-btn>
+        </v-layout>
         <v-list subheader>
           <v-subheader>Batches</v-subheader>
           <v-list-tile avatar v-for="item in batchList" :key="item.key" @click="">
@@ -127,7 +128,7 @@
           <v-subheader>Subjects</v-subheader>
           <v-list-tile avatar v-for="item in subjectsList" :key="item.key" @click="">
             <v-list-tile-content>
-              <v-list-tile-title v-html="item.title"></v-list-tile-title>
+              <v-list-tile-title v-html="returnSubject(item)"></v-list-tile-title>
             </v-list-tile-content>
 
           </v-list-tile>
@@ -165,6 +166,8 @@ export default {
     return {
       valid: true,
       lang: null,
+      dateData: null,
+      timeData: null,
       title:'',
       duration: 0,
       error: '',
@@ -201,6 +204,13 @@ export default {
     }
   },
   methods: {
+    returnSubject: function(item) {
+      return ("<b>").concat(item.title).concat("</b>&nbsp&nbsp&nbsp")
+      .concat("Set A : ").concat(item.NoQA).concat("&nbsp|&nbsp")
+      .concat("Set B : ").concat(item.NoQB).concat("&nbsp|&nbsp")
+      .concat("Set C : ").concat(item.NoQC).concat("&nbsp|&nbsp")
+      .concat("Set D : ").concat(item.NoQD).concat("&nbsp|&nbsp")
+    },
     throwUp: function(title,content) {
       this.error = content
       this.errorTitle = title
@@ -213,10 +223,13 @@ export default {
     let hr = time.slice(8,10)
     let min = time.slice(10,12)
     let date = new Date(`${yyyy}-${mm}-${dd}T${hr}:${mm}:00`);
-
     return Date.parse(date).toString();
   },
-
+    addDateTime() {
+      let val = this.dateData.toString().concat("T").concat(this.timeData.toString()) ;
+      let dat = new Date(val)
+      this.batchList.push({key: this.currentBatchId++,start:dat.toUTCString()})
+    },
     addSub(){
       this.subjectsList.push({
         key : this.subjectIndex,
