@@ -10,7 +10,6 @@ export default new Router({
     {
       path: '/',
       component: require('@/components/signin').default,
-  //    beforeEnter: Guard.guest
     },
     {
       path: '/error',
@@ -19,7 +18,7 @@ export default new Router({
     {
       path: '/adminDashboard',
       component: require('@/components/adminDashboard').default,
-  //    beforeEnter: Guard.authAdmin,
+     beforeEnter: Guard.authAdmin,
       children:[
 
         {
@@ -55,6 +54,7 @@ export default new Router({
     {
       path: '/studentDashboard',
       component: require('@/components/studentDashboard').default,
+      beforeEnter: Guard.authStudent,
       children:[
 
         {

@@ -233,13 +233,24 @@
         this.dialog = true
       },
       submit () {
+        let batchStart = "";
+        let batchEnd = "";
+        this.batchList.forEach((val) => {
+          if (val['_id'] == this.batch){
+            batchStart = val.start_time
+            batchEnd = val.end_time
+
+          }
+        })
+        console.log(batchStart)
         if (this.$refs.form.validate()) {
           axios.AuthAxios.post('/signup/student', {
             firstName: this.firstName,
             middleName: this.middleName,
             lastName: this.lastName,
             gender: this.gender,
-            batch: this.batch,
+            batchStart: batchStart,
+            batchEnd: batchEnd,
             aadharNo: this.aadharNo,
             contactNo: this.contactNo,
             email: this.email,

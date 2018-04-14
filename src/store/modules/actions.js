@@ -11,7 +11,11 @@ export default {
       console.log(response.data)
       sessionStorage.setItem('token',response.data.token)
       sessionStorage.setItem('kind',response.data.kind)
-      router.push('/adminDashboard')
+      if(response.data.kind == 'admin') {
+        router.push('/adminDashboard')
+      } else {
+        router.push('/studentDashboard')
+      }
     })
   }
 }

@@ -37,35 +37,35 @@ export default {
       this.dialog = true
     },
     genResults: function () {
-      axios.get("generateResults").then((val) => {
+      axios.AuthAxios.get("generateResults").then((val) => {
         this.throwUp("Successful!!","Generated Successfully")
       }).catch((val) => {
         this.throwUp("Error!!","val")
       })
     },
 genStudentAnal: function () {
-  axios.get("generateStudentAnalytics").then((val) => {
+  axios.AuthAxios.get("generateStudentAnalytics").then((val) => {
     this.throwUp("Successful!!","Generated Successfully")
     }).catch((val) => {
     this.throwUp("Error!!","val")
     })
 },
 genBulkAnal: function () {
-  axios.get("generateBulkAnalytics").then((val) => {
+  axios.AuthAxios.get("generateBulkAnalytics").then((val) => {
     this.throwUp("Successful!!","Generated Successfully")
     }).catch((val) => {
     this.throwUp("Error!!","val")
     })
 },
 genIncomeAnal: function () {
-  axios.get("generateIncomeAnalytics").then((val) => {
+  axios.AuthAxios.get("generateIncomeAnalytics").then((val) => {
     this.throwUp("Successful!!","Generated Successfully")
     }).catch((val) => {
     this.throwUp("Error!!","val")
     })
 },
 genCategoryAnal: function () {
-  axios.get("generateCategoryAnalytics").then((val) => {
+  axios.AuthAxios.get("generateCategoryAnalytics").then((val) => {
     this.throwUp("Successful!!","Generated Successfully")
     }).catch((val) => {
     this.throwUp("Error!!","val")

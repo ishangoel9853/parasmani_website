@@ -177,7 +177,7 @@ export default {
   },
   created () {
 
-    axios.AuthAxios.get('/getStudentAnalytics').then((val) => {
+    axios.AuthAxios.post('/getStudentAnalytics').then((val) => {
       const data = val.data
       this.setDataSetA(data)
       this.setDataSetB(data)
