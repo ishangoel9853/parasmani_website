@@ -34,8 +34,10 @@
           <v-subheader>Languages</v-subheader>
           <v-list-tile avatar v-for="item in langList" :key="item.key" @click="">
             <v-list-tile-content>
-              <v-list-tile-title v-html="item.title"></v-list-tile-title>
+              <v-list-tile-title v-html="item.title">
+              </v-list-tile-title>
             </v-list-tile-content>
+            <v-btn @click="removeLang(item.title)">Delete</v-btn>
 
           </v-list-tile>
         </v-list>
@@ -57,6 +59,7 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="item.start"></v-list-tile-title>
             </v-list-tile-content>
+            <v-btn @click="removeBatch(item.start)">Delete</v-btn>
 
           </v-list-tile>
         </v-list>
@@ -130,6 +133,7 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="returnSubject(item)"></v-list-tile-title>
             </v-list-tile-content>
+            <v-btn @click="removeSubject(item.title)">Delete</v-btn>
 
           </v-list-tile>
         </v-list>
@@ -204,6 +208,33 @@ export default {
     }
   },
   methods: {
+    removeLang: function(lang){
+      console.log(lang);
+      for(var i=0; i < this.langList.length; i++) {
+         if(this.langList[i].title == lang)
+         {
+            this.langList.splice(i,1);
+         }
+      }
+    },
+    removeBatch: function(start){
+      console.log(start);
+      for(var i=0; i < this.batchList.length; i++) {
+         if(this.batchList[i].start == start)
+         {
+            this.batchList.splice(i,1);
+         }
+      }
+    },
+    removeSubject: function(title){
+      console.log(title);
+      for(var i=0; i < this.subjectsList.length; i++) {
+         if(this.subjectsList[i].title == title)
+         {
+            this.subjectsList.splice(i,1);
+         }
+      }
+    },
     returnSubject: function(item) {
       return ("<b>").concat(item.title).concat("</b>&nbsp&nbsp&nbsp")
       .concat("Set A : ").concat(item.NoQA).concat("&nbsp|&nbsp")
