@@ -43,6 +43,10 @@ export default new Router({
           component: require('@/components/addExam').default,
         },
         {
+          path: '/viewExam',
+          component: require('@/components/viewExam').default,
+        },
+        {
           path: '/viewQues',
           component: require('@/components/viewQues').default,
         }
