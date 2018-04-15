@@ -59,7 +59,19 @@
     required
   ></v-text-field>
   <v-btn @click="remove(quesID)">Delete</v-btn>
-
+  <v-dialog v-model="dialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <h2>{{errorTitle}}</h2>
+        </v-card-title>
+        <v-card-text>
+          {{error}}
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" flat @click.stop="dialog=false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </v-app>
 
 </template>
@@ -76,6 +88,9 @@ export default {
      langID: 0,
      langList: [],
      set: 0,
+     error: '',
+     errorTitle: '',
+     dialog: false,
      setList: [],
      headers: [
          {
@@ -98,11 +113,28 @@ export default {
   }
 },
  methods: {
+   throwUp: function(title,content) {
+     this.error = content
+     this.errorTitle = title
+     this.dialog = true
+   },
    remove: function(ques){
      console.log(ques);
-     var idx = this.quesList.indexOf(ques)
-     console.log('idx', idx)
-     this.quesList.splice(idx,1)
+     let id = ''
+     let lang = this.langID
+     let set = this.set
+     for(var i=0; i < this.quesList.length; i++) {
+        if(this.quesList[i].id == ques)
+        {
+          id = this.quesList[i]._id
+          this.quesList.splice(i,1);
+        }
+     }
+     axios.AuthAxios.post('/deleteQuestion',{id,lang,set}).then((response) => {
+       this.throwUp("Successful!!","Created Successfully")
+     }).catch((err) => {
+       this.throwUp("Error!!",err.toString())
+     })
    }
  },
  computed: {

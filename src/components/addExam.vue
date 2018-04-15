@@ -283,7 +283,7 @@ export default {
         console.log(response)
           this.throwUp("Successful!!","Created Successfully")
       }).catch((err) => {
-        this.throwUp("Successful!!",err.toString())
+        this.throwUp("Error!!",err.toString())
       })
     },
     clear () {
