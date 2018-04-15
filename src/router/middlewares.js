@@ -9,7 +9,7 @@ export default {
         }
     },
     authAdmin (to, from, next) {
-      console.log("chut")
+      console.log("Unauthorised")
       if(window.localStorage.getItem('token') != null) {
         if(window.localStorage.getItem('kind') == 'admin') {
           next()

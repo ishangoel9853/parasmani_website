@@ -118,7 +118,7 @@ export default {
    remove: function(id){
      var item = this.studentList.find(function (obj) { return obj._id == id});
      axios.AuthAxios.post('/students',{id:id}).then((response) => {
-       this.studentList.slice(this.studentList.indexOf(item),this.studentList.indexOf(item)+1)
+       this.studentList.splice(this.studentList.indexOf(item),1)
      }).then((response) => {
        console.log(response)
          this.throwUp("Successful!!","Created Successfully")
