@@ -1,7 +1,14 @@
 <template lang="html">
-  <v-app>
-    Error
-  </v-app>
+
+    <v-card>
+    <v-card-text>
+
+      <p  class="text-md-center">Unauthorised.
+  Invalid Request !</p>
+    </v-card-text>
+  </v-card>
+
+
 </template>
 
 <script>

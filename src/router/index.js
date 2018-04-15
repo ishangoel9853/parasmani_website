@@ -48,6 +48,10 @@ export default new Router({
         {
           path: '/viewQues',
           component: require('@/components/viewQues').default,
+        },
+        {
+          path: '/viewBulkAnalytics',
+          component: require('@/components/viewBulkAnalytics').default,
         }
       ]
     },

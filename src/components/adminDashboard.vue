@@ -69,7 +69,15 @@
             <v-icon>account_box</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <router-link to="/">Logout</router-link>
+            <router-link to="/viewBulkAnalytics">View Bulk Analytics</router-link>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="">
+          <v-list-tile-action>
+            <v-icon>account_box</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-btn @click="logout">Logout</v-btn>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -96,6 +104,13 @@
     }),
     props: {
       source: String
+    },
+    methods: {
+      logout: function (){
+        window.localStorage.setItem('token','')
+        window.localStorage.setItem('kind','')
+        this.$router.push('/')
+      }
     }
   }
 </script>
