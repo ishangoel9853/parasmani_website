@@ -58,7 +58,6 @@ export default new Router({
     {
       path: '/studentDashboard',
       component: require('@/components/studentDashboard').default,
-      beforeEnter: Guard.authStudent,
       children:[
 
         {
