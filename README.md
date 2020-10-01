@@ -5,7 +5,7 @@ First you must host parasmani-server online. And then navigate to /src/axios.js 
 ## Run the following commands to deploy on localhost
 
 ``` bash
-# install dependencies
+# INSTALL Dependencies
 npm install
 
 # serve with hot reload at localhost:8080
